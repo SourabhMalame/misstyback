@@ -23,7 +23,7 @@ const corsOptions = {
   credentials: true // Allow cookies or authorization headers
 };
 
-app.use(cors(corsOptions));
+server.use(cors(corsOptions));
 
 server.use("/api", app);
 
