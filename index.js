@@ -17,22 +17,14 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(requestLogger);
 
-const allowedDomains = ['https://misstyback.vercel.app/', 'http://localhost:5173/'];
-
 const corsOptions = {
-  origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-
-    if (allowedDomains.indexOf(origin) !== -1) {
-      callback(null, true);  // Allow the request if the origin is in the allowedDomains list
-    } else {
-      callback(new Error('Not allowed by CORS'));  // Block the request if the origin is not allowed
-    }
-  }
+  origin: ['http://localhost:5173/', 'https://misstyback.vercel.app/'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true // Allow cookies or authorization headers
 };
 
 app.use(cors(corsOptions));
+
 server.use("/api", app);
 
 const PORT = process.env.PORT || 5001;
